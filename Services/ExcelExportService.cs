@@ -10,27 +10,15 @@ internal static class ExcelExportService
 
     public static void AppendDeviceStatus(string path, DeviceInfo device)
     {
-        XLWorkbook book;
-        IXLWorksheet sheet;
+        using var book = File.Exists(path) ? new XLWorkbook(path) : new XLWorkbook();
 
-        if (File.Exists(path))
+        if (!book.Worksheets.TryGetWorksheet(SheetName, out var sheet))
         {
-            book = new XLWorkbook(path);
-            if (!book.Worksheets.TryGetWorksheet(SheetName, out sheet!))
-            {
-                sheet = book.Worksheets.Add(SheetName);
-                WriteHeader(sheet);
-            }
-        }
-        else
-        {
-            book = new XLWorkbook();
             sheet = book.Worksheets.Add(SheetName);
             WriteHeader(sheet);
         }
 
-        int row = sheet.LastRowUsed()?.RowNumber() + 1 ?? 2;
-        if (row < 2) row = 2;
+        int row = (sheet.LastRowUsed()?.RowNumber() ?? 1) + 1;
         sheet.Cell(row, 1).Value = device.CheckedAt.ToString("yyyy-MM-dd");
         sheet.Cell(row, 2).Value = device.CheckedAt.ToString("HH:mm:ss");
         sheet.Cell(row, 3).Value = device.Name;
@@ -40,7 +28,6 @@ internal static class ExcelExportService
 
         sheet.Columns().AdjustToContents();
         book.SaveAs(path);
-        book.Dispose();
     }
 
     private static void WriteHeader(IXLWorksheet sheet)
