@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Breed Explorer - WinForms Edition</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Style Guidance -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#005faa",
+                        "surface-container-high": "#e8e8e8",
+                        "on-primary-container": "#ffffff",
+                        "secondary-fixed-dim": "#9ecaff",
+                        "secondary": "#0061a3",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "on-secondary-container": "#003f6d",
+                        "surface": "#f9f9f9",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001c39",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbc8",
+                        "surface-dim": "#dadada",
+                        "primary-container": "#0078d4",
+                        "on-background": "#1a1c1c",
+                        "tertiary-container": "#bc5b00",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9f9",
+                        "secondary-fixed": "#d1e4ff",
+                        "primary-fixed": "#d3e3ff",
+                        "surface-tint": "#0060ab",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#5badff",
+                        "on-secondary": "#ffffff",
+                        "outline": "#717783",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#974700",
+                        "on-tertiary-fixed": "#311300",
+                        "outline-variant": "#c0c7d4",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "inverse-primary": "#a3c9ff",
+                        "on-secondary-fixed": "#001d36",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-fixed-variant": "#00497d",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface": "#1a1c1c",
+                        "on-primary-fixed-variant": "#004883",
+                        "on-surface-variant": "#404752",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "surface-container": "#eeeeee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack_md": "8px",
+                        "stack_lg": "16px",
+                        "gutter": "16px",
+                        "stack_sm": "4px",
+                        "margin_page": "24px",
+                        "sidebar_width": "240px",
+                        "control_height": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles to ensure full height and consistent text color */
+        body {
+            background-color: theme('colors.surface-container-lowest');
+            color: theme('colors.on-surface');
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            overflow: hidden; /* Prevent body scrolling, allow content area to scroll */
+        }
+        
+        /* WinForms specific utility: removing default focus outlines and applying solid borders */
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border-color: theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-[240px] bg-surface-container-low border-r border-outline-variant flex flex-col gap-stack_sm py-stack_lg z-10 shrink-0">
+<!-- Header -->
+<div class="px-gutter mb-stack_lg">
+<div class="flex items-center gap-stack_md mb-stack_sm">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined" style="font-size: 18px;">pets</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Breed Explorer</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">WinForms Edition</p>
+</div>
+</div>
+</div>
+<!-- Main Navigation -->
+<nav class="flex-1 flex flex-col">
+<!-- Active Tab -->
+<a class="flex items-center h-10 border-l-[3px] border-primary bg-surface-container-lowest text-primary font-bold px-4 cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-stack_md" style="font-size: 18px; font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="font-label-lg text-label-lg">All Breeds</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-stack_md" style="font-size: 18px;">favorite</span>
+<span class="font-label-lg text-label-lg font-normal">Favorites</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-stack_md" style="font-size: 18px;">history</span>
+<span class="font-label-lg text-label-lg font-normal">History</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-stack_md" style="font-size: 18px;">compare_arrows</span>
+<span class="font-label-lg text-label-lg font-normal">Comparison</span>
+</a>
+</nav>
+<!-- Footer Navigation -->
+<div class="mt-auto flex flex-col border-t border-outline-variant pt-stack_sm">
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-stack_md" style="font-size: 18px;">settings</span>
+<span class="font-label-lg text-label-lg font-normal">Settings</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-stack_md" style="font-size: 18px;">contact_support</span>
+<span class="font-label-lg text-label-lg font-normal">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar_width flex-1 bg-surface-container-lowest h-full overflow-y-auto p-margin_page flex flex-col">
+<!-- Toolbar / Header Area -->
+<header class="flex flex-col gap-stack_md pb-stack_lg mb-stack_lg border-b border-outline-variant shrink-0">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Dog Breed Index</h2>
+<!-- WinForms Style Controls Row -->
+<div class="flex items-center gap-stack_md flex-wrap">
+<!-- Search Control -->
+<div class="flex items-center border border-outline-variant bg-surface-container-lowest rounded h-control_height focus-within:border-primary px-stack_sm w-64">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 16px;">search</span>
+<input class="border-0 bg-transparent h-full w-full px-stack_sm font-body-md text-body-md text-on-surface placeholder:text-outline focus:ring-0" placeholder="Search breeds..." type="text"/>
+</div>
+<!-- Filter Controls -->
+<button class="flex items-center justify-center gap-stack_sm h-control_height px-stack_md border border-outline-variant bg-surface-container-lowest rounded hover:bg-surface-container-high transition-colors text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                    Filter
+                </button>
+<div class="flex items-center border border-outline-variant bg-surface-container-lowest rounded h-control_height px-stack_sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant mr-stack_sm">Group:</label>
+<select class="border-0 bg-transparent h-full py-0 pl-0 pr-6 font-body-md text-body-md text-on-surface focus:ring-0 cursor-pointer">
+<option>All Groups</option>
+<option>Working</option>
+<option>Hound</option>
+<option>Terrier</option>
+<option>Toy</option>
+</select>
+</div>
+<!-- Spacer -->
+<div class="flex-1"></div>
+<!-- View Toggle (List/Grid) - mimicking standard application toolbars -->
+<div class="flex border border-outline-variant rounded overflow-hidden h-control_height">
+<button class="bg-surface-container-highest px-stack_sm flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined" style="font-size: 18px;">grid_view</span>
+</button>
+<button class="bg-surface-container-lowest px-stack_sm flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high border-l border-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">view_list</span>
+</button>
+</div>
+</div>
+</header>
+<!-- FlowLayoutPanel equivalent (CSS Grid) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-stack_lg pb-margin_page">
+<!-- Card 1: Affenpinscher -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col overflow-hidden group hover:border-primary transition-colors cursor-pointer">
+<div class="aspect-video bg-surface-container relative border-b border-outline-variant">
+<img alt="Affenpinscher" class="w-full h-full object-cover object-center" data-alt="A striking portrait of a scruffy, black Affenpinscher dog standing against a clean, bright white background. The lighting is high-key and professional, emphasizing the modern, functional light-mode aesthetic. The dog's wiry coat is detailed with sharp precision, matching the high-contrast corporate style. The mood is alert and precise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz_SrLq76Jhtep8wGyxRtraNiF9AMW7DQup9i9PYX7Hf1FBh5w1kBGIXurzMiceTaPlvnTG340_aCJ-q82PlbloWcgwGqnbG1Y8aP-etWd4dohCuKvzxK653Iyi6TwtPiX2gunDRqSLBkM6sXuio9X7sn1NiQW3tpPtOQCUSDbwV-5ujlDeU-EtFKPuYUMDHdPZbrL64-_MHvqncJv_0VyIm_Rnnd5xW4eZTBrrHSFHxBfBh0m8ER-3oGtQuzcIXGysyPRSQaPUwI"/>
+</div>
+<div class="p-stack_md flex flex-col gap-stack_sm">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Affenpinscher</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors" style="font-size: 16px;">favorite_border</span>
+</div>
+<div class="flex flex-wrap gap-stack_sm">
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Toy</span>
+<span class="px-stack_sm py-[2px] bg-secondary-fixed text-on-secondary-fixed rounded border border-outline-variant font-label-sm text-label-sm">Hypoallergenic</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-stack_sm line-clamp-2">
+                        The Affenpinscher is a terrier-like toy breed of dog. It is known for its monkey-like expression and wiry coat.
+                    </p>
+</div>
+</div>
+<!-- Card 2: Afghan Hound -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col overflow-hidden group hover:border-primary transition-colors cursor-pointer">
+<div class="aspect-video bg-surface-container relative border-b border-outline-variant">
+<img alt="Afghan Hound" class="w-full h-full object-cover object-center" data-alt="An elegant, long-haired Afghan Hound standing majestically in a stark, minimalist environment. The background is a flat, pale gray, creating a high-contrast corporate visual style. The lighting is bright and even, highlighting the silky texture of the dog's coat without creating dramatic shadows. The overall image reflects a clean, systematic, and functional light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNrcDnCxhwxNIekGXI3SYYIwL9kbUlKW6gNS__Tu70WKMM9Tou5juZKN-_VMS-YbIk85RVAOZ2aADzrWzd5DX-MY7lyZFrCmIPYimmOyETstLjz7bQtx8GVrW6FqU4O0RqrfY2ZRYlZd8XzutT5AuM3FDWWQzjnDQE1QebJKrm2Wtb2Zy2s2nYezPVhe_-QwxkQEgMN0ebpuKsZ-2wmoPQijH_6dajHOzmk6OIIFM9aAlKda9jNlC7MGUwI8flM45Nprupr-yKAKg"/>
+</div>
+<div class="p-stack_md flex flex-col gap-stack_sm">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Afghan Hound</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors" style="font-size: 16px;">favorite_border</span>
+</div>
+<div class="flex flex-wrap gap-stack_sm">
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Hound</span>
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Independent</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-stack_sm line-clamp-2">
+                        A hound that is distinguished by its thick, fine, silky coat and its tail with a ring curl at the end.
+                    </p>
+</div>
+</div>
+<!-- Card 3: Airedale Terrier -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col overflow-hidden group hover:border-primary transition-colors cursor-pointer">
+<div class="aspect-video bg-surface-container relative border-b border-outline-variant">
+<div class="w-full h-full bg-surface-container-highest flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 32px;">image</span>
+</div>
+</div>
+<div class="p-stack_md flex flex-col gap-stack_sm">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Airedale Terrier</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors" style="font-size: 16px;">favorite_border</span>
+</div>
+<div class="flex flex-wrap gap-stack_sm">
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Terrier</span>
+<span class="px-stack_sm py-[2px] bg-secondary-fixed text-on-secondary-fixed rounded border border-outline-variant font-label-sm text-label-sm">Hypoallergenic</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-stack_sm line-clamp-2">
+                        Known as the 'King of Terriers', this is the largest of the terrier breeds, originating in Yorkshire.
+                    </p>
+</div>
+</div>
+<!-- Card 4: Akita -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col overflow-hidden group hover:border-primary transition-colors cursor-pointer">
+<div class="aspect-video bg-surface-container relative border-b border-outline-variant">
+<img alt="Akita" class="w-full h-full object-cover object-center" data-alt="A powerful Akita dog photographed in a well-lit, sterile studio setting. The backdrop is a solid, clean white, aligning perfectly with a modern, high-contrast WinForms application style. There are no distracting background elements, shadows are minimal, and the focus is entirely on the dog's distinct features and thick coat. The image conveys strength and order." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCv0vGaa9_4aoHkOF2-dDbpvA_M5AvtOflx50ro3QZJGNCSJNBUfqPIhOFAfahyOKrATAw75H1bBaovdmxNfp-7HyCnuEh5nJ54wYlN_dG3qcubmzwndFCpUWGFru4lLLa8YE-oeFd2VDrjkAREYI6zJpV60h5HbgaVMbTRR-5XEdE_Zp-vGJC6P_jK54bB4noqeQi_ahzcSx6ZCM8Z2LD_PvUcViRxCap6GHmWtdeqSxVhvlzqKY-0c3ZijPIcK62cAYcHH5-YTgo"/>
+</div>
+<div class="p-stack_md flex flex-col gap-stack_sm">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Akita</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors" style="font-size: 16px;">favorite_border</span>
+</div>
+<div class="flex flex-wrap gap-stack_sm">
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Working</span>
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Loyal</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-stack_sm line-clamp-2">
+                        A large breed of dog originating from the mountainous regions of northern Japan, known for its loyalty.
+                    </p>
+</div>
+</div>
+<!-- Card 5: Alaskan Malamute -->
+<div class="border border-outline-variant rounded-lg bg-surface-container-lowest flex flex-col overflow-hidden group hover:border-primary transition-colors cursor-pointer">
+<div class="aspect-video bg-surface-container relative border-b border-outline-variant">
+<div class="w-full h-full bg-surface-container-highest flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 32px;">image</span>
+</div>
+</div>
+<div class="p-stack_md flex flex-col gap-stack_sm">
+<div class="flex justify-between items-start">
+<h3 class="font-label-lg text-label-lg text-on-surface font-bold">Alaskan Malamute</h3>
+<span class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors" style="font-size: 16px;">favorite_border</span>
+</div>
+<div class="flex flex-wrap gap-stack_sm">
+<span class="px-stack_sm py-[2px] bg-surface-container-high rounded border border-outline-variant font-label-sm text-label-sm text-on-surface-variant">Working</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-stack_sm line-clamp-2">
+                        A large breed of domestic dog originally bred for their strength and endurance to haul heavy freight.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+</body></html>

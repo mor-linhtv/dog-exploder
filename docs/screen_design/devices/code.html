@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Device Status - Breed Explorer WinForms</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#005faa",
+                        "surface-container-high": "#e8e8e8",
+                        "on-primary-container": "#ffffff",
+                        "secondary-fixed-dim": "#9ecaff",
+                        "secondary": "#0061a3",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "on-secondary-container": "#003f6d",
+                        "surface": "#f9f9f9",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001c39",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbc8",
+                        "surface-dim": "#dadada",
+                        "primary-container": "#0078d4",
+                        "on-background": "#1a1c1c",
+                        "tertiary-container": "#bc5b00",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9f9",
+                        "secondary-fixed": "#d1e4ff",
+                        "primary-fixed": "#d3e3ff",
+                        "surface-tint": "#0060ab",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#5badff",
+                        "on-secondary": "#ffffff",
+                        "outline": "#717783",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#974700",
+                        "on-tertiary-fixed": "#311300",
+                        "outline-variant": "#c0c7d4",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "inverse-primary": "#a3c9ff",
+                        "on-secondary-fixed": "#001d36",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-fixed-variant": "#00497d",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface": "#1a1c1c",
+                        "on-primary-fixed-variant": "#004883",
+                        "on-surface-variant": "#404752",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "surface-container": "#eeeeee"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "stack_md": "8px",
+                        "stack_lg": "16px",
+                        "gutter": "16px",
+                        "stack_sm": "4px",
+                        "margin_page": "24px",
+                        "sidebar_width": "240px",
+                        "control_height": "32px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9; /* background */
+            color: #1a1c1c; /* on-background */
+        }
+        /* Custom scrollbar for WinForms feel */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f3f3; 
+            border-left: 1px solid #c0c7d4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c0c7d4; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #717783; 
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased font-body-md text-on-background">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-sidebar_width bg-surface-container-low border-r border-outline-variant flex flex-col gap-stack_sm py-stack_lg flex-shrink-0 z-20">
+<!-- Header -->
+<div class="px-4 mb-4">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Breed Explorer</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">WinForms Edition</p>
+</div>
+<!-- Tabs -->
+<div class="flex-1 flex flex-col">
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[16px]">grid_view</span>
+<span class="font-label-lg text-label-lg">All Breeds</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[16px]">favorite</span>
+<span class="font-label-lg text-label-lg">Favorites</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[16px]">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[16px]">compare_arrows</span>
+<span class="font-label-lg text-label-lg">Comparison</span>
+</a>
+<!-- Assuming Device Status falls under Settings intent for this demo, marking Settings active -->
+</div>
+<!-- Footer Tabs -->
+<div class="flex flex-col mt-auto border-t border-outline-variant pt-2">
+<!-- Active State on Settings -->
+<a class="flex items-center h-10 border-l-[3px] border-primary bg-white text-primary font-bold px-4 cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[16px]">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+<a class="flex items-center h-10 text-on-surface-variant px-4 hover:bg-surface-container-high cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[16px]">contact_support</span>
+<span class="font-label-lg text-label-lg">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-sidebar_width flex flex-col h-full overflow-hidden bg-background">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center h-[48px] px-gutter w-full flex-shrink-0 z-10">
+<div class="flex items-center">
+<span class="font-headline-md text-headline-md font-semibold text-on-surface">Device Status</span>
+</div>
+<div class="flex items-center space-x-2">
+<button aria-label="Account" class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-DEFAULT transition-colors duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+<button aria-label="Settings" class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-DEFAULT transition-colors duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button aria-label="Help" class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-DEFAULT transition-colors duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 overflow-auto p-margin_page">
+<div class="max-w-5xl mx-auto space-y-stack_lg">
+<!-- Toolbar -->
+<div class="flex items-center justify-between bg-surface-container-lowest border border-[#d1d1d1] p-3">
+<div class="flex items-center space-x-4">
+<button class="h-control_height px-4 bg-primary text-white font-label-md text-label-md rounded-DEFAULT hover:bg-[#005294] transition-colors border border-transparent flex items-center">
+<span class="material-symbols-outlined mr-2 text-[16px]">refresh</span>
+                            Refresh All
+                        </button>
+<button class="h-control_height px-4 bg-white text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors border border-[#d1d1d1] flex items-center">
+<span class="material-symbols-outlined mr-2 text-[16px]">add</span>
+                            Add Device
+                        </button>
+</div>
+<div class="flex items-center space-x-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Last updated: Today, 10:42 AM</span>
+</div>
+</div>
+<!-- Device Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack_lg">
+<!-- Device Panel 1: Connected -->
+<div class="bg-surface-container-lowest border border-[#d1d1d1] flex flex-col h-full">
+<div class="p-4 border-b border-[#d1d1d1] bg-[#f3f3f3] flex justify-between items-center">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary text-[24px]">router</span>
+<h2 class="font-label-lg text-label-lg text-on-surface">Main Gateway</h2>
+</div>
+<!-- Status Badge -->
+<div class="bg-[#d1e4ff] text-[#001d36] px-2 py-1 rounded-DEFAULT border border-[#9ecaff] flex items-center space-x-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span class="font-label-sm text-label-sm font-bold">Connected</span>
+</div>
+</div>
+<div class="p-4 flex-1">
+<table class="w-full text-left border-collapse">
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium w-1/3">IP Address</td>
+<td class="py-2">192.168.1.1</td>
+</tr>
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium">MAC Address</td>
+<td class="py-2">00:1A:2B:3C:4D:5E</td>
+</tr>
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium">Firmware</td>
+<td class="py-2">v2.4.1</td>
+</tr>
+<tr>
+<td class="py-2 text-on-surface-variant font-medium">Uptime</td>
+<td class="py-2">14d 05h 22m</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 border-t border-[#d1d1d1] bg-[#f9f9f9] flex justify-end space-x-2 mt-auto">
+<button class="h-control_height px-4 bg-white text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors border border-[#d1d1d1]">
+                                Check Connection
+                            </button>
+<button class="h-control_height px-4 bg-white text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors border border-[#d1d1d1]">
+                                Configure
+                            </button>
+</div>
+</div>
+<!-- Device Panel 2: Disconnected -->
+<div class="bg-surface-container-lowest border border-[#d1d1d1] flex flex-col h-full">
+<div class="p-4 border-b border-[#d1d1d1] bg-[#f3f3f3] flex justify-between items-center">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-outline text-[24px]">dns</span>
+<h2 class="font-label-lg text-label-lg text-on-surface">Backup Server</h2>
+</div>
+<!-- Status Badge -->
+<div class="bg-[#ffdad6] text-[#93000a] px-2 py-1 rounded-DEFAULT border border-[#ffb4ab] flex items-center space-x-1">
+<span class="material-symbols-outlined text-[14px]">error</span>
+<span class="font-label-sm text-label-sm font-bold">Disconnected</span>
+</div>
+</div>
+<div class="p-4 flex-1">
+<table class="w-full text-left border-collapse opacity-70">
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium w-1/3">IP Address</td>
+<td class="py-2">10.0.0.55</td>
+</tr>
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium">MAC Address</td>
+<td class="py-2">F4:09:D8:11:A2:00</td>
+</tr>
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium">Last Seen</td>
+<td class="py-2">Yesterday, 23:15 PM</td>
+</tr>
+<tr>
+<td class="py-2 text-on-surface-variant font-medium">Error Code</td>
+<td class="py-2 text-error">ERR_TIMEOUT (0x800A)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 border-t border-[#d1d1d1] bg-[#f9f9f9] flex justify-end space-x-2 mt-auto">
+<button class="h-control_height px-4 bg-primary text-white font-label-md text-label-md rounded-DEFAULT hover:bg-[#005294] transition-colors border border-transparent">
+                                Retry Connection
+                            </button>
+<button class="h-control_height px-4 bg-white text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors border border-[#d1d1d1]">
+                                Configure
+                            </button>
+</div>
+</div>
+<!-- Device Panel 3: Warning/Degraded -->
+<div class="bg-surface-container-lowest border border-[#d1d1d1] flex flex-col h-full">
+<div class="p-4 border-b border-[#d1d1d1] bg-[#f3f3f3] flex justify-between items-center">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-[#bc5b00] text-[24px]">sensors</span>
+<h2 class="font-label-lg text-label-lg text-on-surface">Env Sensor Node A</h2>
+</div>
+<!-- Status Badge -->
+<div class="bg-[#ffdbc8] text-[#311300] px-2 py-1 rounded-DEFAULT border border-[#ffb689] flex items-center space-x-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-label-sm text-label-sm font-bold">Degraded</span>
+</div>
+</div>
+<div class="p-4 flex-1">
+<table class="w-full text-left border-collapse">
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium w-1/3">Signal Strength</td>
+<td class="py-2 text-[#bc5b00]">Poor (-85 dBm)</td>
+</tr>
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium">Battery</td>
+<td class="py-2">12%</td>
+</tr>
+<tr class="border-b border-surface-container-highest">
+<td class="py-2 text-on-surface-variant font-medium">Data Rate</td>
+<td class="py-2">1.2 kbps</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 border-t border-[#d1d1d1] bg-[#f9f9f9] flex justify-end space-x-2 mt-auto">
+<button class="h-control_height px-4 bg-white text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors border border-[#d1d1d1]">
+                                Check Connection
+                            </button>
+<button class="h-control_height px-4 bg-white text-on-surface font-label-md text-label-md rounded-DEFAULT hover:bg-surface-container-low transition-colors border border-[#d1d1d1]">
+                                Diagnostics
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
