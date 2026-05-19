@@ -102,12 +102,14 @@ public partial class BreedListControl : UserControl
     {
         lblState.Text = text;
         btnRetry.Visible = showRetry;
+        if (showRetry) _spinner.Stop(); else _spinner.Start();
         pnlState.Visible = true;
         pnlState.BringToFront();
     }
 
     private void HideState()
     {
+        _spinner.Stop();
         pnlState.Visible = false;
         pnlGrid.BringToFront();
     }

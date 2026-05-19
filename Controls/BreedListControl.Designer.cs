@@ -12,6 +12,7 @@ partial class BreedListControl
     private Panel pnlState;
     private Label lblState;
     private Button btnRetry;
+    private LoadingSpinner _spinner;
     private System.Windows.Forms.Timer searchDebounce;
 
     protected override void Dispose(bool disposing)
@@ -79,28 +80,32 @@ partial class BreedListControl
         pnlState.BackColor = Color.White;
         pnlState.Visible = false;
 
+        _spinner = new LoadingSpinner();
+        _spinner.BackColor = Color.White;
+
         lblState.Text = "Đang tải...";
         lblState.Font = new Font("Segoe UI", 11f);
-        lblState.Dock = DockStyle.Top;
-        lblState.Height = 40;
-        lblState.TextAlign = ContentAlignment.MiddleCenter;
-        lblState.Padding = new Padding(0, 100, 0, 0);
+        lblState.TextAlign = ContentAlignment.TopCenter;
+        lblState.Size = new Size(400, 30);
 
         btnRetry.Text = "Thử lại";
         btnRetry.Visible = false;
         btnRetry.Size = new Size(120, 32);
-        btnRetry.Anchor = AnchorStyles.Top;
-        btnRetry.Top = 160;
-        btnRetry.Left = 0;
         btnRetry.FlatStyle = FlatStyle.Flat;
         btnRetry.BackColor = Color.FromArgb(0x00, 0x78, 0xD4);
         btnRetry.ForeColor = Color.White;
         btnRetry.FlatAppearance.BorderSize = 0;
         btnRetry.Click += BtnRetry_Click;
 
-        pnlState.Controls.Add(btnRetry);
+        pnlState.Controls.Add(_spinner);
         pnlState.Controls.Add(lblState);
-        pnlState.Resize += (s, e) => { btnRetry.Left = (pnlState.Width - btnRetry.Width) / 2; };
+        pnlState.Controls.Add(btnRetry);
+        pnlState.Resize += (s, e) =>
+        {
+            _spinner.Location = new Point((pnlState.Width - 40) / 2, pnlState.Height / 2 - 60);
+            lblState.Location = new Point((pnlState.Width - 400) / 2, pnlState.Height / 2 - 10);
+            btnRetry.Location = new Point((pnlState.Width - btnRetry.Width) / 2, pnlState.Height / 2 + 30);
+        };
 
         searchDebounce.Interval = 300;
         searchDebounce.Tick += (s, e) => { searchDebounce.Stop(); RenderCards(); };
