@@ -1,17 +1,42 @@
 using Dog_Exploder.Forms;
 
-namespace Dog_Exploder
+namespace Dog_Exploder;
+
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    static void Main()
     {
-        [STAThread]
-        static void Main()
+        ApplicationConfiguration.Initialize();
+        Application.Run(new AppApplicationContext());
+    }
+}
+
+internal sealed class AppApplicationContext : ApplicationContext
+{
+    public AppApplicationContext() => ShowLogin();
+
+    private void ShowLogin()
+    {
+        Session.Clear();
+        using var login = new LoginForm();
+        if (login.ShowDialog() != DialogResult.OK)
         {
-            ApplicationConfiguration.Initialize();
-            using var login = new LoginForm();
-            if (login.ShowDialog() != DialogResult.OK) return;
-            Session.Username = login.Username;
-            Application.Run(new MainForm());
+            ExitThread();
+            return;
         }
+        Session.Username = login.Username;
+        var main = new MainForm();
+        main.FormClosed += OnMainFormClosed;
+        MainForm = main;
+        main.Show();
+    }
+
+    private void OnMainFormClosed(object? sender, FormClosedEventArgs e)
+    {
+        if (Session.IsLoggingOut)
+            ShowLogin();
+        else
+            ExitThread();
     }
 }
