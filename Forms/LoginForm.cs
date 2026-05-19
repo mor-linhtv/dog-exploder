@@ -21,7 +21,7 @@ public partial class LoginForm : Form
         Username = txtUsername.Text.Trim();
         if (string.IsNullOrEmpty(Username)) return;
         DialogResult = DialogResult.OK;
-        Close();
+        this.Close();
     }
 
     private void PnlCard_Paint(object? sender, PaintEventArgs e)
@@ -44,5 +44,10 @@ public partial class LoginForm : Form
         g.FillEllipse(brush, 30, 16, 8, 8);
         g.FillEllipse(brush, 38, 22, 8, 8);
         g.FillEllipse(brush, 20, 30, 18, 12);
+    }
+
+    private void picLogo_Click(object sender, EventArgs e)
+    {
+
     }
 }
