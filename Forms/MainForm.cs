@@ -32,8 +32,11 @@ public partial class MainForm : Form
         var toRemove = pnlContent.Controls.OfType<Control>().Where(c => c != lblGreeting).ToList();
         foreach (var c in toRemove) pnlContent.Controls.Remove(c);
         pnlContent.Controls.Add(ctl);
+        // Greeting must dock FIRST (it's Dock=Top reserving 32px) so the Fill pane gets the
+        // remaining area. WinForms processes docking from backmost child to frontmost — keep
+        // greeting at the back (higher Controls index) and push ctl to the front.
         ctl.BringToFront();
-        lblGreeting.BringToFront();
+        lblGreeting.SendToBack();
 
         foreach (var it in _items)
             it.Active = it.Key == key || (key == "detail" && it.Key == "breeds");

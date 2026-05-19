@@ -97,7 +97,7 @@ partial class MainForm
 
         pnlContent.Dock = DockStyle.Fill;
         pnlContent.BackColor = Color.FromArgb(0xF9, 0xF9, 0xF9);
-        pnlContent.Padding = new Padding(24, 48, 24, 24);
+        pnlContent.Padding = new Padding(24, 12, 24, 24);
 
         lblGreeting.Dock = DockStyle.Top;
         lblGreeting.Height = 32;
