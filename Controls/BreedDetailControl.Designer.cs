@@ -18,6 +18,7 @@ partial class BreedDetailControl
     private Panel pnlCare;
     private Label lblCareTitle;
     private Label lblCareBody;
+    private LoadingSpinner _imageSpinner;
 
     protected override void Dispose(bool disposing)
     {
@@ -75,7 +76,6 @@ partial class BreedDetailControl
         picImage.Size = new Size(280, 180);
         picImage.SizeMode = PictureBoxSizeMode.Zoom;
         picImage.BackColor = Color.FromArgb(0xE8, 0xE8, 0xE8);
-        picImage.Paint += PicImage_Paint;
 
         lblName.Location = new Point(320, 16);
         lblName.Size = new Size(500, 40);
@@ -94,7 +94,16 @@ partial class BreedDetailControl
         lblGroupBadge.ForeColor = Color.FromArgb(0x00, 0x48, 0x83);
         lblGroupBadge.Paint += LblGroupBadge_Paint;
 
+        _imageSpinner = new LoadingSpinner();
+        _imageSpinner.Size = new Size(40, 40);
+        _imageSpinner.Location = new Point(
+            picImage.Left + (picImage.Width  - 40) / 2,
+            picImage.Top  + (picImage.Height - 40) / 2);
+        _imageSpinner.BackColor = picImage.BackColor;
+
         pnlHeader.Controls.Add(picImage);
+        pnlHeader.Controls.Add(_imageSpinner);
+        _imageSpinner.BringToFront();
         pnlHeader.Controls.Add(lblName);
         pnlHeader.Controls.Add(lblDescription);
         pnlHeader.Controls.Add(lblGroupBadge);
