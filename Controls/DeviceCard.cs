@@ -11,10 +11,15 @@ public partial class DeviceCard : UserControl
     public bool IsSelected => rbSelect.Checked;
 
     public event EventHandler<DeviceInfo>? Updated;
+    public event EventHandler? SelectionChanged;
 
     public DeviceCard()
     {
         InitializeComponent();
+        rbSelect.CheckedChanged += (s, e) =>
+        {
+            if (rbSelect.Checked) SelectionChanged?.Invoke(this, EventArgs.Empty);
+        };
     }
 
     public void Bind(DeviceInfo device)

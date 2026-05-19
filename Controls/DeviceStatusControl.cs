@@ -37,9 +37,16 @@ public partial class DeviceStatusControl : UserControl
         {
             var card = new DeviceCard();
             card.Bind(d);
+            card.SelectionChanged += Card_SelectionChanged;
             pnlDevices.Controls.Add(card);
         }
         pnlDevices.ResumeLayout();
+    }
+
+    private void Card_SelectionChanged(object? sender, EventArgs e)
+    {
+        foreach (var other in pnlDevices.Controls.OfType<DeviceCard>())
+            if (!ReferenceEquals(other, sender)) other.ClearSelection();
     }
 
     private async void BtnRefreshAll_Click(object? sender, EventArgs e) => await RefreshAllAsync();

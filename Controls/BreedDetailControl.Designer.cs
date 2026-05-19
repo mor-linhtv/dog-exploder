@@ -11,6 +11,7 @@ partial class BreedDetailControl
     private Label lblName;
     private Label lblDescription;
     private Label lblGroupBadge;
+    private TableLayoutPanel pnlBody;
     private Panel pnlSpecs;
     private Label lblSpecsTitle;
     private DataGridView dgvSpecs;
@@ -35,6 +36,7 @@ partial class BreedDetailControl
         lblName = new Label();
         lblDescription = new Label();
         lblGroupBadge = new Label();
+        pnlBody = new TableLayoutPanel();
         pnlSpecs = new Panel();
         lblSpecsTitle = new Label();
         dgvSpecs = new DataGridView();
@@ -97,8 +99,8 @@ partial class BreedDetailControl
         pnlHeader.Controls.Add(lblDescription);
         pnlHeader.Controls.Add(lblGroupBadge);
 
-        pnlSpecs.Location = new Point(0, 280);
-        pnlSpecs.Size = new Size(440, 280);
+        pnlSpecs.Dock = DockStyle.Fill;
+        pnlSpecs.Margin = new Padding(0, 0, 8, 0);
         pnlSpecs.BackColor = Color.White;
         pnlSpecs.Padding = new Padding(16);
         pnlSpecs.Paint += Bordered_Paint;
@@ -127,8 +129,8 @@ partial class BreedDetailControl
         pnlSpecs.Controls.Add(dgvSpecs);
         pnlSpecs.Controls.Add(lblSpecsTitle);
 
-        pnlCare.Location = new Point(456, 280);
-        pnlCare.Size = new Size(440, 280);
+        pnlCare.Dock = DockStyle.Fill;
+        pnlCare.Margin = new Padding(8, 0, 0, 0);
         pnlCare.BackColor = Color.White;
         pnlCare.Padding = new Padding(16);
         pnlCare.Paint += Bordered_Paint;
@@ -146,8 +148,17 @@ partial class BreedDetailControl
         pnlCare.Controls.Add(lblCareBody);
         pnlCare.Controls.Add(lblCareTitle);
 
-        Controls.Add(pnlSpecs);
-        Controls.Add(pnlCare);
+        pnlBody.Dock = DockStyle.Fill;
+        pnlBody.ColumnCount = 2;
+        pnlBody.RowCount = 1;
+        pnlBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+        pnlBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
+        pnlBody.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
+        pnlBody.Padding = new Padding(0, 16, 0, 0);
+        pnlBody.Controls.Add(pnlSpecs, 0, 0);
+        pnlBody.Controls.Add(pnlCare, 1, 0);
+
+        Controls.Add(pnlBody);
         Controls.Add(pnlHeader);
         Controls.Add(pnlTopBar);
         BackColor = Color.FromArgb(0xF9, 0xF9, 0xF9);
