@@ -23,6 +23,7 @@ public partial class MainForm : Form
     private void BtnLogout_Click(object? sender, EventArgs e)
     {
         Session.IsLoggingOut = true;
+        Hide();
         Close();
     }
 
