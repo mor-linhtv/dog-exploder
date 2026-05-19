@@ -19,6 +19,8 @@ partial class MainForm
     private SidebarItem itemSupport;
     private Panel pnlContent;
     private Label lblGreeting;
+    private Panel pnlLogoutSeparator;
+    private Button btnLogout;
 
     protected override void Dispose(bool disposing)
     {
@@ -41,6 +43,8 @@ partial class MainForm
         itemDevices = new SidebarItem { Key = "devices", ItemText = "Device Status" };
         itemSettings = new SidebarItem { Key = "settings", ItemText = "Settings" };
         itemSupport = new SidebarItem { Key = "support", ItemText = "Support" };
+        pnlLogoutSeparator = new Panel();
+        btnLogout = new Button();
         pnlContent = new Panel();
         lblGreeting = new Label();
 
@@ -68,8 +72,28 @@ partial class MainForm
 
         itemSupport.Dock = DockStyle.Top;
         itemSettings.Dock = DockStyle.Top;
+        pnlLogoutSeparator.Dock = DockStyle.Top;
+        pnlLogoutSeparator.Height = 1;
+        pnlLogoutSeparator.BackColor = Color.FromArgb(0xC0, 0xC7, 0xD4);
+
+        btnLogout.Text = "Logout";
+        btnLogout.Dock = DockStyle.Top;
+        btnLogout.Height = 40;
+        btnLogout.FlatStyle = FlatStyle.Flat;
+        btnLogout.FlatAppearance.BorderSize = 0;
+        btnLogout.ForeColor = Color.FromArgb(0xC4, 0x2B, 0x1C);
+        btnLogout.BackColor = Color.Transparent;
+        btnLogout.Font = new Font("Segoe UI", 9.5f);
+        btnLogout.TextAlign = ContentAlignment.MiddleLeft;
+        btnLogout.Padding = new Padding(16, 0, 0, 0);
+        btnLogout.Cursor = Cursors.Hand;
+        btnLogout.MouseEnter += (s, e) => btnLogout.BackColor = Color.FromArgb(0xFD, 0xE7, 0xE9);
+        btnLogout.MouseLeave += (s, e) => btnLogout.BackColor = Color.Transparent;
+
         pnlSidebarBottom.Dock = DockStyle.Bottom;
-        pnlSidebarBottom.Height = 80;
+        pnlSidebarBottom.Height = 125;
+        pnlSidebarBottom.Controls.Add(btnLogout);
+        pnlSidebarBottom.Controls.Add(pnlLogoutSeparator);
         pnlSidebarBottom.Controls.Add(itemSupport);
         pnlSidebarBottom.Controls.Add(itemSettings);
 
