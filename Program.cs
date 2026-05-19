@@ -1,3 +1,5 @@
+using Dog_Exploder.Forms;
+
 namespace Dog_Exploder
 {
     internal static class Program
@@ -6,7 +8,10 @@ namespace Dog_Exploder
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            // Wired in Unit 11
+            using var login = new LoginForm();
+            if (login.ShowDialog() != DialogResult.OK) return;
+            Session.Username = login.Username;
+            Application.Run(new MainForm());
         }
     }
 }
