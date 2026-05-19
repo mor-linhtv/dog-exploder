@@ -12,6 +12,7 @@ partial class DeviceStatusControl
     private FlowLayoutPanel pnlDevices;
     private Panel pnlState;
     private Label lblState;
+    private LoadingSpinner _spinner;
 
     protected override void Dispose(bool disposing)
     {
@@ -90,11 +91,21 @@ partial class DeviceStatusControl
         pnlState.Visible = false;
         pnlState.BackColor = Color.FromArgb(0xF9, 0xF9, 0xF9);
 
+        _spinner = new LoadingSpinner();
+        _spinner.BackColor = Color.FromArgb(0xF9, 0xF9, 0xF9);
+
         lblState.Text = "Đang kiểm tra thiết bị...";
-        lblState.Dock = DockStyle.Fill;
-        lblState.TextAlign = ContentAlignment.MiddleCenter;
+        lblState.TextAlign = ContentAlignment.TopCenter;
         lblState.Font = new Font("Segoe UI", 11f);
+        lblState.Size = new Size(400, 30);
+
+        pnlState.Controls.Add(_spinner);
         pnlState.Controls.Add(lblState);
+        pnlState.Resize += (s, e) =>
+        {
+            _spinner.Location = new Point((pnlState.Width - 40) / 2, pnlState.Height / 2 - 50);
+            lblState.Location = new Point((pnlState.Width - 400) / 2, pnlState.Height / 2 + 0);
+        };
 
         Controls.Add(pnlDevices);
         Controls.Add(pnlState);

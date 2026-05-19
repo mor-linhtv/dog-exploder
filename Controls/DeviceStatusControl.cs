@@ -94,12 +94,14 @@ public partial class DeviceStatusControl : UserControl
     private void ShowState(string text)
     {
         lblState.Text = text;
+        _spinner.Start();
         pnlState.Visible = true;
         pnlState.BringToFront();
     }
 
     private void HideState()
     {
+        _spinner.Stop();
         pnlState.Visible = false;
         pnlDevices.BringToFront();
     }
