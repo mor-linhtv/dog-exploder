@@ -34,7 +34,6 @@ internal sealed class AppApplicationContext : ApplicationContext
 
     private void OnMainFormClosed(object? sender, FormClosedEventArgs e)
     {
-        (sender as Form)?.Dispose();
         if (Session.IsLoggingOut)
             ShowLogin();
         else
