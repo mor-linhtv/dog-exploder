@@ -89,6 +89,7 @@ partial class MainForm
         btnLogout.Cursor = Cursors.Hand;
         btnLogout.MouseEnter += (s, e) => btnLogout.BackColor = Color.FromArgb(0xFD, 0xE7, 0xE9);
         btnLogout.MouseLeave += (s, e) => btnLogout.BackColor = Color.Transparent;
+        btnLogout.Click += BtnLogout_Click;
 
         pnlSidebarBottom.Dock = DockStyle.Bottom;
         pnlSidebarBottom.Height = 125;

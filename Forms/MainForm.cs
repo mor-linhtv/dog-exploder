@@ -20,6 +20,12 @@ public partial class MainForm : Form
         ShowPane("breeds");
     }
 
+    private void BtnLogout_Click(object? sender, EventArgs e)
+    {
+        Session.IsLoggingOut = true;
+        Close();
+    }
+
     public void ShowPane(string key)
     {
         if (!_panes.TryGetValue(key, out var ctl))
