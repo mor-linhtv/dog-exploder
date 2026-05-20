@@ -20,7 +20,7 @@ public partial class BreedListControl : UserControl
         else
         {
             PopulateGroups();
-            RenderCards();
+            await RenderCardsAsync();
         }
     }
 
@@ -34,9 +34,9 @@ public partial class BreedListControl : UserControl
             DogApiService.ResolveGroupNames(breeds, groups);
             Session.Breeds = breeds;
             Session.Groups = groups;
-            HideState();
             PopulateGroups();
-            RenderCards();
+            await RenderCardsAsync();
+            HideState();
         }
         catch (Exception ex)
         {
@@ -54,7 +54,7 @@ public partial class BreedListControl : UserControl
         cboGroup.SelectedIndex = 0;
     }
 
-    private void RenderCards()
+    private async Task RenderCardsAsync()
     {
         if (Session.Breeds == null) return;
         var query = txtSearch.Text.Trim();
@@ -70,12 +70,18 @@ public partial class BreedListControl : UserControl
         pnlGrid.SuspendLayout();
         foreach (Control c in pnlGrid.Controls) c.Dispose();
         pnlGrid.Controls.Clear();
-        foreach (var b in filtered)
+        for (int i = 0; i < filtered.Count; i++)
         {
             var card = new BreedCard();
-            card.Bind(b);
+            card.Bind(filtered[i]);
             card.BreedSelected += (s, breed) => BreedSelected?.Invoke(this, breed);
             pnlGrid.Controls.Add(card);
+            if ((i + 1) % 20 == 0)
+            {
+                pnlGrid.ResumeLayout(false);
+                await Task.Yield();
+                pnlGrid.SuspendLayout();
+            }
         }
         pnlGrid.ResumeLayout();
     }
@@ -86,7 +92,7 @@ public partial class BreedListControl : UserControl
         searchDebounce.Start();
     }
 
-    private void CboGroup_SelectedIndexChanged(object? sender, EventArgs e) => RenderCards();
+    private async void CboGroup_SelectedIndexChanged(object? sender, EventArgs e) => await RenderCardsAsync();
 
     private async void BtnRefresh_Click(object? sender, EventArgs e)
     {

@@ -108,7 +108,7 @@ partial class BreedListControl
         };
 
         searchDebounce.Interval = 300;
-        searchDebounce.Tick += (s, e) => { searchDebounce.Stop(); RenderCards(); };
+        searchDebounce.Tick += async (s, e) => { searchDebounce.Stop(); await RenderCardsAsync(); };
 
         Controls.Add(pnlGrid);
         Controls.Add(pnlState);
