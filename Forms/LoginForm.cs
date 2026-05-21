@@ -38,12 +38,12 @@ public partial class LoginForm : Form
         var g = e.Graphics;
         g.SmoothingMode = SmoothingMode.AntiAlias;
         using var brush = new SolidBrush(Color.FromArgb(0x00, 0x78, 0xD4));
-        // simple paw glyph: 4 toes + heel
-        g.FillEllipse(brush, 14, 22, 8, 8);
-        g.FillEllipse(brush, 22, 16, 8, 8);
-        g.FillEllipse(brush, 30, 16, 8, 8);
-        g.FillEllipse(brush, 38, 22, 8, 8);
-        g.FillEllipse(brush, 20, 30, 18, 12);
+        // simple paw glyph: 4 toes + heel — centered in 48×48
+        g.FillEllipse(brush,  8, 17, 8, 8);
+        g.FillEllipse(brush, 16, 11, 8, 8);
+        g.FillEllipse(brush, 24, 11, 8, 8);
+        g.FillEllipse(brush, 32, 17, 8, 8);
+        g.FillEllipse(brush, 14, 25, 18, 12);
     }
 
     private void picLogo_Click(object sender, EventArgs e)

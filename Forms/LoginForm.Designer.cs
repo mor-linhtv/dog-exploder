@@ -72,9 +72,9 @@ partial class LoginForm
         // lblTitle
         // 
         lblTitle.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-        lblTitle.Location = new Point(0, 76);
+        lblTitle.Location = new Point(20, 76);
         lblTitle.Name = "lblTitle";
-        lblTitle.Size = new Size(360, 36);
+        lblTitle.Size = new Size(320, 36);
         lblTitle.TabIndex = 1;
         lblTitle.Text = "Đăng nhập";
         lblTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -83,9 +83,9 @@ partial class LoginForm
         // 
         lblSubtitle.Font = new Font("Segoe UI", 9F);
         lblSubtitle.ForeColor = Color.FromArgb(64, 71, 82);
-        lblSubtitle.Location = new Point(0, 116);
+        lblSubtitle.Location = new Point(20, 116);
         lblSubtitle.Name = "lblSubtitle";
-        lblSubtitle.Size = new Size(360, 20);
+        lblSubtitle.Size = new Size(320, 20);
         lblSubtitle.TabIndex = 2;
         lblSubtitle.Text = "Chào mừng bạn quay lại với Dog Explorer";
         lblSubtitle.TextAlign = ContentAlignment.MiddleCenter;

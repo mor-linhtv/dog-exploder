@@ -3,7 +3,19 @@
     "allow": [
       "Skill(superpowers:brainstorming)",
       "Skill(superpowers:writing-plans)",
-      "Skill(superpowers:subagent-driven-development)"
+      "Skill(superpowers:subagent-driven-development)",
+      "Bash(dotnet restore *)",
+      "Bash(dotnet build *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\ltv\\\\Desktop\\\\WF-demo\\\\Dog-Exploder\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(xargs grep -l \"class DeviceInfo\\\\|enum DeviceStatus\")",
+      "Skill(superpowers:using-superpowers)",
+      "Skill(superpowers:receiving-code-review)",
+      "Skill(superpowers:finishing-a-development-branch)",
+      "Skill(superpowers:systematic-debugging)",
+      "Skill(superpowers:executing-plans)"
     ]
   }
 }

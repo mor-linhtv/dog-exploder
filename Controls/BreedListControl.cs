@@ -104,6 +104,19 @@ public partial class BreedListControl : UserControl
 
     private async void BtnRetry_Click(object? sender, EventArgs e) => await LoadAsync();
 
+    private void PnlState_Resize(object? sender, EventArgs e)
+    {
+        _spinner.Location = new Point((pnlState.Width - 40) / 2, pnlState.Height / 2 - 60);
+        lblState.Location = new Point((pnlState.Width - 400) / 2, pnlState.Height / 2 - 10);
+        btnRetry.Location = new Point((pnlState.Width - btnRetry.Width) / 2, pnlState.Height / 2 + 30);
+    }
+
+    private async void SearchDebounce_Tick(object? sender, EventArgs e)
+    {
+        searchDebounce.Stop();
+        await RenderCardsAsync();
+    }
+
     private void ShowState(string text, bool showRetry)
     {
         lblState.Text = text;
