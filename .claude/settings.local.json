@@ -15,7 +15,8 @@
       "Skill(superpowers:receiving-code-review)",
       "Skill(superpowers:finishing-a-development-branch)",
       "Skill(superpowers:systematic-debugging)",
-      "Skill(superpowers:executing-plans)"
+      "Skill(superpowers:executing-plans)",
+      "PowerShell(dotnet build *)"
     ]
   }
 }

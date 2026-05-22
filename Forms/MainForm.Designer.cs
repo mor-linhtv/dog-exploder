@@ -1,4 +1,5 @@
 using Dog_Exploder.Controls;
+using Dog_Exploder.Services;
 
 namespace Dog_Exploder.Forms;
 
@@ -21,10 +22,17 @@ partial class MainForm
     private Label lblGreeting;
     private Panel pnlLogoutSeparator;
     private Button btnLogout;
+    private NetworkStatusBar networkStatusBar;
+    private NetworkMonitorService networkMonitor;
 
     protected override void Dispose(bool disposing)
     {
-        if (disposing && (components != null)) components.Dispose();
+        if (disposing)
+        {
+            networkMonitor?.Stop();
+            networkMonitor?.Dispose();
+            if (components != null) components.Dispose();
+        }
         base.Dispose(disposing);
     }
 
@@ -87,8 +95,6 @@ partial class MainForm
         btnLogout.TextAlign = ContentAlignment.MiddleLeft;
         btnLogout.Padding = new Padding(16, 0, 0, 0);
         btnLogout.Cursor = Cursors.Hand;
-        btnLogout.MouseEnter += (s, e) => btnLogout.BackColor = Color.FromArgb(0xFD, 0xE7, 0xE9);
-        btnLogout.MouseLeave += (s, e) => btnLogout.BackColor = Color.Transparent;
         btnLogout.Click += BtnLogout_Click;
 
         pnlSidebarBottom.Dock = DockStyle.Bottom;
@@ -112,14 +118,6 @@ partial class MainForm
         pnlSidebar.Controls.Add(pnlSidebarHeader);
         pnlSidebar.Controls.Add(pnlSidebarBottom);
 
-        itemAllBreeds.Click  += (s, e) => ShowPane("breeds");
-        itemFavorites.Click  += (s, e) => ShowPane("favorites");
-        itemHistory.Click    += (s, e) => ShowPane("history");
-        itemComparison.Click += (s, e) => ShowPane("comparison");
-        itemDevices.Click    += (s, e) => ShowPane("devices");
-        itemSettings.Click   += (s, e) => ShowPane("settings");
-        itemSupport.Click    += (s, e) => ShowPane("support");
-
         pnlContent.Dock = DockStyle.Fill;
         pnlContent.BackColor = Color.FromArgb(0xF9, 0xF9, 0xF9);
         pnlContent.Padding = new Padding(24, 12, 24, 24);
@@ -130,13 +128,20 @@ partial class MainForm
         lblGreeting.Font = new Font("Segoe UI", 9.5f);
         lblGreeting.ForeColor = Color.FromArgb(0x40, 0x47, 0x52);
 
+        networkMonitor = new NetworkMonitorService();
+        networkStatusBar = new NetworkStatusBar();
+        networkStatusBar.Dock = DockStyle.Bottom;
+
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(1100, 720);
         MinimumSize = new Size(900, 600);
         Text = "Dog Explorer";
         StartPosition = FormStartPosition.CenterScreen;
         BackColor = Color.White;
+        // Dock order: WinForms docks in reverse add order — last added wins
+        // first claim on edges. Add Fill first, then edge-docked siblings.
         Controls.Add(pnlContent);
         Controls.Add(pnlSidebar);
+        Controls.Add(networkStatusBar);
     }
 }

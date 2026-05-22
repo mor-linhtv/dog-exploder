@@ -11,6 +11,20 @@ public partial class MainForm : Form
     {
         InitializeComponent();
         pnlContent.Controls.Add(lblGreeting);
+
+        btnLogout.MouseEnter += (s, e) => btnLogout.BackColor = Color.FromArgb(0xFD, 0xE7, 0xE9);
+        btnLogout.MouseLeave += (s, e) => btnLogout.BackColor = Color.Transparent;
+
+        itemAllBreeds.Click  += (s, e) => ShowPane("breeds");
+        itemFavorites.Click  += (s, e) => ShowPane("favorites");
+        itemHistory.Click    += (s, e) => ShowPane("history");
+        itemComparison.Click += (s, e) => ShowPane("comparison");
+        itemDevices.Click    += (s, e) => ShowPane("devices");
+        itemSettings.Click   += (s, e) => ShowPane("settings");
+        itemSupport.Click    += (s, e) => ShowPane("support");
+
+        networkStatusBar.Attach(networkMonitor);
+
         Load += MainForm_Load;
     }
 
@@ -18,6 +32,7 @@ public partial class MainForm : Form
     {
         lblGreeting.Text = $"Hi, {Session.Username} 👋";
         ShowPane("breeds");
+        networkMonitor.Start();
     }
 
     private void BtnLogout_Click(object? sender, EventArgs e)
