@@ -24,11 +24,13 @@ partial class MainForm
     private Button btnLogout;
     private NetworkStatusBar networkStatusBar;
     private NetworkMonitorService networkMonitor;
+    private NetworkAlertCoordinator networkAlerts;
 
     protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
+            networkAlerts?.Dispose();
             networkMonitor?.Stop();
             networkMonitor?.Dispose();
             if (components != null) components.Dispose();

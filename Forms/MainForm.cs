@@ -1,4 +1,5 @@
 using Dog_Exploder.Controls;
+using Dog_Exploder.Services;
 
 namespace Dog_Exploder.Forms;
 
@@ -24,6 +25,7 @@ public partial class MainForm : Form
         itemSupport.Click    += (s, e) => ShowPane("support");
 
         networkStatusBar.Attach(networkMonitor);
+        networkAlerts = new NetworkAlertCoordinator(this, networkMonitor);
 
         Load += MainForm_Load;
     }
