@@ -16,13 +16,13 @@ public partial class MainForm : Form
         btnLogout.MouseEnter += (s, e) => btnLogout.BackColor = Color.FromArgb(0xFD, 0xE7, 0xE9);
         btnLogout.MouseLeave += (s, e) => btnLogout.BackColor = Color.Transparent;
 
-        itemAllBreeds.Click  += (s, e) => ShowPane("breeds");
-        itemFavorites.Click  += (s, e) => ShowPane("favorites");
-        itemHistory.Click    += (s, e) => ShowPane("history");
+        itemAllBreeds.Click += (s, e) => ShowPane("breeds");
+        itemFavorites.Click += (s, e) => ShowPane("favorites");
+        itemHistory.Click += (s, e) => ShowPane("history");
         itemComparison.Click += (s, e) => ShowPane("comparison");
-        itemDevices.Click    += (s, e) => ShowPane("devices");
-        itemSettings.Click   += (s, e) => ShowPane("settings");
-        itemSupport.Click    += (s, e) => ShowPane("support");
+        itemDevices.Click += (s, e) => ShowPane("devices");
+        itemSettings.Click += (s, e) => ShowPane("settings");
+        itemSupport.Click += (s, e) => ShowPane("support");
 
         networkStatusBar.Attach(networkMonitor);
         networkAlerts = new NetworkAlertCoordinator(this, networkMonitor);
@@ -97,11 +97,16 @@ public partial class MainForm : Form
 
     private static string TitleFor(string key) => key switch
     {
-        "favorites"  => "Favorites",
-        "history"    => "History",
+        "favorites" => "Favorites",
+        "history" => "History",
         "comparison" => "Comparison",
-        "settings"   => "Settings",
-        "support"    => "Support",
+        "settings" => "Settings",
+        "support" => "Support",
         _ => key
     };
+
+    private void lblBrandSubtitle_Click(object sender, EventArgs e)
+    {
+
+    }
 }
