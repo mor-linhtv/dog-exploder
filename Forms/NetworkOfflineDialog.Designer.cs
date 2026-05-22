@@ -51,7 +51,7 @@ partial class NetworkOfflineDialog
         lblBody.Size = new Size(372, 48);
         lblBody.Font = Theme.BodyMd;
         lblBody.ForeColor = Theme.TextOnSurface;
-        lblBody.Text = "Ứng dụng không thể kết nối đến dogapi.dog.\r\nVui lòng kiểm tra Wi-Fi, dây mạng hoặc firewall rồi thử lại.";
+        lblBody.Text = "Ứng dụng không thể kết nối đến Internet.\r\nVui lòng kiểm tra Wi-Fi, dây mạng hoặc firewall rồi thử lại.";
 
         // lblDetectedAt
         lblDetectedAt.AutoSize = false;

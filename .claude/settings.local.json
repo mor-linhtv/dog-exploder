@@ -16,7 +16,9 @@
       "Skill(superpowers:finishing-a-development-branch)",
       "Skill(superpowers:systematic-debugging)",
       "Skill(superpowers:executing-plans)",
-      "PowerShell(dotnet build *)"
+      "PowerShell(dotnet build *)",
+      "Bash(Start-Process dotnet *)",
+      "Bash(Select-Object -ExpandProperty Id)"
     ]
   }
 }
