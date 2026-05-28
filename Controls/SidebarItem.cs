@@ -17,6 +17,12 @@ public partial class SidebarItem : UserControl
         set => lblText.Text = value;
     }
 
+    public override string Text
+    {
+        get => lblText.Text;
+        set { base.Text = value; lblText.Text = value; }
+    }
+
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool Active
     {

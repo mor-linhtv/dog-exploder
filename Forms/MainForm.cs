@@ -6,7 +6,7 @@ namespace Dog_Exploder.Forms;
 public partial class MainForm : Form
 {
     private readonly Dictionary<string, UserControl> _panes = new();
-    private SidebarItem[] _items => new[] { itemAllBreeds, itemFavorites, itemHistory, itemComparison, itemDevices, itemSettings, itemSupport };
+    private SidebarItem[] _items => new[] { itemAllBreeds, itemFavorites, itemHistory, itemComparison, itemDevices, itemSettings };
 
     public MainForm()
     {
@@ -22,7 +22,7 @@ public partial class MainForm : Form
         itemComparison.Click += (s, e) => ShowPane("comparison");
         itemDevices.Click += (s, e) => ShowPane("devices");
         itemSettings.Click += (s, e) => ShowPane("settings");
-        itemSupport.Click += (s, e) => ShowPane("support");
+        //itemSupport.Click += (s, e) => ShowPane("support");
 
         networkStatusBar.Attach(networkMonitor);
         networkAlerts = new NetworkAlertCoordinator(this, networkMonitor);

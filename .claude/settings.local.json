@@ -18,7 +18,12 @@
       "Skill(superpowers:executing-plans)",
       "PowerShell(dotnet build *)",
       "Bash(Start-Process dotnet *)",
-      "Bash(Select-Object -ExpandProperty Id)"
+      "Bash(Select-Object -ExpandProperty Id)",
+      "Bash(git rm *)",
+      "Bash(git *)",
+      "PowerShell(Stop-Job *)",
+      "Bash(go test *)",
+      "PowerShell(Test-Path *)"
     ]
   }
 }

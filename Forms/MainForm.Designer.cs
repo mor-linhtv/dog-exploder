@@ -17,7 +17,6 @@ partial class MainForm
     private SidebarItem itemComparison;
     private SidebarItem itemDevices;
     private SidebarItem itemSettings;
-    private SidebarItem itemSupport;
     private Panel pnlContent;
     private Label lblGreeting;
     private Panel pnlLogoutSeparator;
@@ -48,7 +47,6 @@ partial class MainForm
         pnlSidebarBottom = new Panel();
         btnLogout = new Button();
         pnlLogoutSeparator = new Panel();
-        itemSupport = new SidebarItem();
         itemSettings = new SidebarItem();
         itemFavorites = new SidebarItem();
         itemHistory = new SidebarItem();
@@ -57,6 +55,7 @@ partial class MainForm
         pnlContent = new Panel();
         lblGreeting = new Label();
         networkStatusBar = new NetworkStatusBar();
+        networkMonitor = new NetworkMonitorService();
         pnlSidebar.SuspendLayout();
         pnlSidebarHeader.SuspendLayout();
         pnlSidebarBottom.SuspendLayout();
@@ -81,6 +80,7 @@ partial class MainForm
         itemAllBreeds.Location = new Point(0, 80);
         itemAllBreeds.Name = "itemAllBreeds";
         itemAllBreeds.Size = new Size(240, 40);
+        itemAllBreeds.Text = "All Breeds";
         itemAllBreeds.TabIndex = 0;
         // 
         // pnlSidebarHeader
@@ -120,12 +120,12 @@ partial class MainForm
         // 
         pnlSidebarBottom.Controls.Add(btnLogout);
         pnlSidebarBottom.Controls.Add(pnlLogoutSeparator);
-        pnlSidebarBottom.Controls.Add(itemSupport);
+        //pnlSidebarBottom.Controls.Add(itemSupport);
         pnlSidebarBottom.Controls.Add(itemSettings);
+        pnlSidebarBottom.AutoSize = true;
+        pnlSidebarBottom.AutoSizeMode = AutoSizeMode.GrowAndShrink;
         pnlSidebarBottom.Dock = DockStyle.Bottom;
-        pnlSidebarBottom.Location = new Point(0, 569);
         pnlSidebarBottom.Name = "pnlSidebarBottom";
-        pnlSidebarBottom.Size = new Size(240, 125);
         pnlSidebarBottom.TabIndex = 2;
         // 
         // btnLogout
@@ -156,15 +156,6 @@ partial class MainForm
         pnlLogoutSeparator.Size = new Size(240, 1);
         pnlLogoutSeparator.TabIndex = 1;
         // 
-        // itemSupport
-        // 
-        itemSupport.BackColor = Color.FromArgb(243, 243, 243);
-        itemSupport.Dock = DockStyle.Top;
-        itemSupport.Location = new Point(0, 40);
-        itemSupport.Name = "itemSupport";
-        itemSupport.Size = new Size(240, 40);
-        itemSupport.TabIndex = 2;
-        // 
         // itemSettings
         // 
         itemSettings.BackColor = Color.FromArgb(243, 243, 243);
@@ -172,6 +163,7 @@ partial class MainForm
         itemSettings.Location = new Point(0, 0);
         itemSettings.Name = "itemSettings";
         itemSettings.Size = new Size(240, 40);
+        itemSettings.Text = "Settings";
         itemSettings.TabIndex = 3;
         // 
         // itemFavorites
@@ -242,6 +234,15 @@ partial class MainForm
         networkStatusBar.Size = new Size(1100, 26);
         networkStatusBar.TabIndex = 2;
         // 
+        // itemSupport
+        // 
+        //itemSupport.BackColor = Color.FromArgb(243, 243, 243);
+        //itemSupport.Dock = DockStyle.Top;
+        //itemSupport.Location = new Point(0, 40);
+        //itemSupport.Name = "itemSupport";
+        //itemSupport.Size = new Size(240, 40);
+        //itemSupport.TabIndex = 2;
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -260,4 +261,6 @@ partial class MainForm
         pnlSidebarBottom.ResumeLayout(false);
         ResumeLayout(false);
     }
+
+    private SidebarItem itemSupport;
 }
