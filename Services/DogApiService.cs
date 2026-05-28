@@ -10,7 +10,7 @@ internal static class DogApiService
 {
     private static readonly HttpClient _http = new()
     {
-        BaseAddress = new Uri("https://dogapi.dog/"),
+        BaseAddress = new Uri(AppConfig.DogApiBaseUrl),
         Timeout = TimeSpan.FromSeconds(30)
     };
 

@@ -24,7 +24,7 @@ internal static class DogImageService
         try
         {
             var meta = await _http.GetFromJsonAsync<DogCeoResponse>(
-                $"https://dog.ceo/api/breed/{slug}/images/random", ct);
+                $"{AppConfig.DogImageApiBaseUrl}api/breed/{slug}/images/random", ct);
             if (meta?.Status == "success" && !string.IsNullOrEmpty(meta.Message))
             {
                 using var stream = await _http.GetStreamAsync(meta.Message, ct);
